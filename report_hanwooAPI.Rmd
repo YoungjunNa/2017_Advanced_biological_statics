@@ -1,0 +1,83 @@
+---
+title: "출하성적 분석"
+author: <a href = "https://github.com/YoungjunNa">Youngjun Na (ruminoreticulum@gmail.com)</a>
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    fig_height: 6
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    df_print: paged
+    theme: default
+    highlight: textmate
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+options(warn=-1)
+library(descr)
+library(dplyr)
+library(knitr)
+library(ggplot2)
+theme_set(theme_bw(base_family="AppleGothic"))
+
+setwd("/Users/Youngjun/Google Drive/Animal nutrition model/wd")
+hanwoo<-read.csv("results.txt")
+```
+ 
+### 1. Summary
+#### 1.1. Summary
+
+```{r data, echo=TRUE}
+summary(hanwoo[,c(1,3,6,9,10,11,12)])
+```
+
+#### 1.2. Raw data
+
+```{r cols.print=8, rows.print=10, echo=FALSE}
+hanwoo<-mutate(hanwoo, No=substr(hanwoo$animalNo,6,9)) #단축번호로 지정
+hanwoo<-mutate(hanwoo, Month=round(hanwoo$month, 1))
+hanwoo<-mutate(hanwoo, Farmer=paste0(substr(hanwoo$farmerNm, 1,1),"*",substr(hanwoo$farmerNm, 3,3)))
+hanwoo[,c(13,15,3,11,12,14,9,10)]
+```
+
+
+***
+
+### 2. Quality analysis  
+
+#### Table 2.1. 각 육질등급 발생빈도 및 백분율
+```{r descr, echo=TRUE}
+freq(hanwoo$qgrade, plot=FALSE) %>% round(digits=1) %>% kable()
+```
+
+#### Figure 2.1. 육질등급 발생빈도
+```{r ggplot2, echo=TRUE}
+a<-ggplot(hanwoo, aes(qgrade))
+a+geom_bar(width=0.5, fill="#BDBDBD")+scale_x_discrete(limits=c("3","2","1","1+","1++"))
+```
+
+***  
+
+### 3. Quantity analysis  
+
+
+#### Table 3.1. 각 육량등급 발생빈도 및 백분율
+```{r echo=TRUE}
+freq(hanwoo$wgrade, plot=FALSE) %>% round(digits=1) %>% kable()
+```
+
+#### Figure 3.1. 육량등급 발생빈도
+```{r echo=TRUE}
+b<-ggplot(hanwoo, aes(wgrade))
+b+geom_bar(width=0.3, fill="#BDBDBD")+scale_x_discrete(limits=c("A","B","C"))
+```
+
+
+#### Figure 3.2. 출하월령 분포
+```{r echo=TRUE}
+c<-ggplot(hanwoo, aes(month))
+c+geom_density(kernel="gaussian")
+```
+
+***  
