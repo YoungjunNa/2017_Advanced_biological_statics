@@ -1,0 +1,11 @@
+---
+title: 'Lecture note: 2017 Advanced biological statics'
+author: "Youngjun Na, PhD"
+---
+
+# 1. 기초 R 문법
+```{r}
+getwd()
+dir()
+```
+
