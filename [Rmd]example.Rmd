@@ -1,0 +1,23 @@
+---
+title: '[R Markdown] example'
+author: "Youngjun Na"
+output: html_document
+---
+## ANIMAL MODEL DEVELOPER GROUP
+### R markdown 문법을 이용한 문서 작성
+
+> 인용블록을 사용할수도 있구요..  
+> install.packages("dplyr")  
+> 요런식으로요..
+
+### R markdown의 장점은
+1. 모바일 환경에 최적화 되어 있다는 거죠.
+2. [링크](http://www.oss.kr/?mid=oss_news&listStyle=gallery&document_srl=625886)도 걸 수 있어요.
+3. R에서 코딩한 것을 바로 html로 가져올 수 있죠.
+
+```{r}
+x <- 1:10
+y <- round(rnorm(10, x, 1), 2)
+df <- data.frame(x, y)
+df
+```
