@@ -1,6 +1,6 @@
 ---
 title: 'Lecture note: 2017 Advanced biological statics'
-author: Youngjun Na (ruminoreticulum@gmail.com)</a>
+author: Youngjun Na (ruminoreticulum@gmail.com)
 date: 9/29/2017
 output: 
   html_document:
