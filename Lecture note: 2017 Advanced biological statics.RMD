@@ -193,7 +193,7 @@ filter(df, qgrade=="1++" | wgrade=="A") #or
 ```
 
 
-### 3.2. 파이프 함수의 사용
+## 3.2. 파이프 함수의 사용
 
 - x %>% f(y)  becomes f(x,y)  
 
