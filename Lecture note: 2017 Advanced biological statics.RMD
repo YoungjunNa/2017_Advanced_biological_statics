@@ -1,21 +1,7 @@
----
-title: 'Lecture note: 2017 Advanced biological statics'
-author: Youngjun Na (ruminoreticulum@gmail.com)
-date: 9/29/2017
-output: 
-  html_document:
-    fig_height: 6
-    toc: true
-    toc_depth: 3
-    toc_float: true
-    df_print: paged
-    theme: default
-    highlight: textmate
----
 
 ```{r setup, echo=FALSE, include=FALSE}
 options(warn=-1)
-setwd("C:\Users\Youngjun\Google Drive/wd")
+setwd("/Users/Youngjun/Google Drive/wd")
 ```
 
 
@@ -67,7 +53,7 @@ a>=b #a는 b보다 크거나 같다.
 a<=b #a는 b보다 작거나 같다.
 ```
 
-## 1.5. 데이터셋
+## 1.5. 데이터프레ㅇ
 ```{r}
 a<-1:10
 
@@ -131,7 +117,7 @@ getwd()
 
 ## 2.2. Working directory 설정
 ```{r eval=FALSE}
-setwd("C:\Users\Youngjun\Google Drive/wd")
+setwd("/Users/Youngjun/Google Drive/wd")
 ```
 
 - R studio > Tools > Global option > Default working directory 에서 바꿀수도 있습니다.
