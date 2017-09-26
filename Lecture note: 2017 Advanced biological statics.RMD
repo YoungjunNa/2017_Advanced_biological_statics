@@ -1,0 +1,212 @@
+---
+title: 'Lecture note: 2017 Advanced biological statics'
+author: <a href = "https://github.com/YoungjunNa">Youngjun Na (ruminoreticulum@gmail.com)</a>
+date: 9/29/2017
+output: 
+  html_document:
+    fig_height: 6
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    df_print: paged
+    theme: default
+    highlight: textmate
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+options(warn=-1)
+setwd("C:\Users\Youngjun\Google Drive/wd")
+```
+
+
+# 0. 참고할 문서
+1. [R 기본](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf)
+2. [데이터 가공](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+3. [데이터 시각화](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+4. [연동형 문서 작서](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+
+
+# 1. 일단 따라해봅시다
+
+- **1. R 기본 문서를 참고해 주세요**  
+
+## 1.1. 정의하기
+```{r}
+a<-10 #a는 10입니다.
+b<-5 #b는 5입니다.
+c<-"animal" #c는 animal입니다.
+```
+- 주의: 변수 이름은 문자로 시작해야합니다.  
+
+
+## 1.2. 출력하기
+```{r}
+a
+b
+c
+```
+
+
+## 1.3. 사칙연산
+```{r}
+a+b #더하기
+a-b #빼기
+a/b #나누기
+a*b #곱하기
+a^2 #제곱
+sqrt(a^2) #루트
+```
+
+## 1.4. 논리
+```{r}
+a==b #a는 b와 같다.
+a!=b #a는 b와 같지 않다.
+a>b #a는 b보다 크다.
+a<b #a는 b보다 작다.
+a>=b #a는 b보다 크거나 같다.
+a<=b #a는 b보다 작거나 같다.
+```
+
+## 1.5. 데이터셋
+```{r}
+a<-1:10
+
+a
+```
+
+```{r}
+
+b<-c(1,2,3,4,5,10)
+
+b
+```
+
+```{r}
+c<-c("Konkuk","University")
+
+c
+```
+- c는 '합치다'라는 뜻의 'combine'의 약자입니다.  
+
+```{r}
+example<-data.frame(name=c("철수","영희","건이"), sex=c("Male","Female","Male"),age=c(29,40,33), height=c(175,163,168))
+
+example
+```
+
+```{r}
+x<-example$height #example 데이터 중 height 데이터만 추출
+x
+```
+
+```{r}
+example[2,3]
+example[3,3]
+example[,3]
+example[1,]
+example[-1,]
+example[c(2,3),]
+```
+
+
+## 1.6. 기본 통계
+```{r}
+sum(x) #합계
+mean(x) #평균
+median(x) #중간값
+var(x) #분산
+sd(x) #표준편차
+max(x) #최대값
+min(x) #최소값
+range(x) #범위
+```
+
+
+
+# 2. 기초 R 문법
+## 2.1. Working directory 확인  
+```{r}
+getwd()
+```
+
+## 2.2. Working directory 설정
+```{r eval=FALSE}
+setwd("C:\Users\Youngjun\Google Drive/wd")
+```
+
+- R studio > Tools > Global option > Default working directory 에서 바꿀수도 있습니다.
+
+## 2.3. Working directory 안에 있는 파일 확인
+```{r}
+dir()
+```
+
+## 2.4. 패키지 인스톨
+```{r eval=FALSE}
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("readxl")
+```
+
+## 2.5. 패키지 업데이트
+```{r eval=FALSE}
+update.packages(ask=FALSE)
+```
+
+## 2.6. 패키지 로딩
+```{r eval=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+
+## 2.7. 파일 읽기
+```{r eval=FALSE}
+read.csv("dataframe.csv")
+readxl::read_excel("dataframe.xlsx")
+```
+
+## 2.8. 파일 쓰기
+```{r eval=FALSE}
+write.csv(example, "test.txt", row.names=FALSE)
+```
+
+# 3. 데이터 가공: dplyr 패키지
+
+- **2. 데이터 가공 문서를 참고해 주세요**  
+
+## 3.0. 패키지 로딩
+```{r}
+library(dplyr)
+readxl::read_excel("example_df.xlsx")
+df<-readxl::read_excel("example_df.xlsx")
+```
+
+## 3.1. 필요한 데이터만 추출하기: filter
+
+```{r}
+filter(df, Name=="Kim")
+filter(df, weight > 500)
+filter(df, wgrade != "C")
+filter(df, qgrade != "3")
+filter(df, qgrade=="1++" & wgrade=="A") #and
+filter(df, qgrade=="1++" | wgrade=="A") #or
+```
+
+
+### 3.2. 파이프 함수의 사용
+
+- x %>% f(y)  becomes f(x,y)  
+
+```{r}
+df$month %>% mean()
+mean(df$month)
+```
+
+
+## 3.3. 그룹 분석
+
+```{r}
+group_by(df, Name) %>% summarise(avg=mean(month))
+group_by(df, Name) %>% summarise(month=mean(month), mean_weight=mean(weight), max_weight=max(weight))
+group_by(df, qgrade) %>% summarise(month=mean(month))
+```
