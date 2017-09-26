@@ -1,6 +1,6 @@
 ---
 title: 'Lecture note: 2017 Advanced biological statics'
-author: <a href = "https://github.com/YoungjunNa">Youngjun Na (ruminoreticulum@gmail.com)</a>
+author: Youngjun Na (ruminoreticulum@gmail.com)</a>
 date: 9/29/2017
 output: 
   html_document:
