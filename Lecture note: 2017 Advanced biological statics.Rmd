@@ -2,7 +2,7 @@
 1. [R 기본](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf)
 2. [데이터 가공](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
 3. [데이터 시각화](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
-4. [연동형 문서 작서](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+4. [연동형 문서 작성](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
 
 
 # 1. 일단 따라해봅시다
@@ -46,7 +46,7 @@ a>=b #a는 b보다 크거나 같다.
 a<=b #a는 b보다 작거나 같다.
 ```
 
-## 1.5. 데이터프레임
+## 1.5. 데이터프레임  
 ```{r}
 a<-1:10
 
@@ -153,7 +153,7 @@ write.csv(example, "test.txt", row.names=FALSE)
 
 - **2. 데이터 가공 문서를 참고해 주세요**  
 
-## 3.0. 패키지 로딩
+## 3.0. 패키지 로딩 및 데이터 읽기
 ```{r}
 library(dplyr)
 readxl::read_excel("example_df.xlsx")
@@ -172,7 +172,7 @@ filter(df, qgrade=="1++" | wgrade=="A") #or
 ```
 
 
-## 3.2. 파이프 함수의 사용
+## 3.2. 파이프 함수의 사용: %>%  
 
 - x %>% f(y)  becomes f(x,y)  
 
@@ -182,10 +182,70 @@ mean(df$month)
 ```
 
 
-## 3.3. 그룹 분석
+## 3.3. 그룹 분석: group_by
 
 ```{r}
 group_by(df, Name) %>% summarise(avg=mean(month))
 group_by(df, Name) %>% summarise(month=mean(month), mean_weight=mean(weight), max_weight=max(weight))
 group_by(df, qgrade) %>% summarise(month=mean(month))
 ```
+
+
+# 4. 시각화: ggplot2 패키지
+- **3. 데이터 시각화 문서 및 R graphic cookbook을 참고해 주세요**  
+
+## 4.0. 패키지 로딩
+```{r}
+library(ggplot2)
+```
+
+## 4.1. 메인 데이터셋 지정: ggplot(data=df, aes(x,y))
+```{r}
+g<-ggplot(df, aes(x=month,y=weight))
+
+g
+```
+
+## 4.2. 산점도: + geom_point()
+```{r}
+g + geom_point()
+```
+
+
+## 4.3. 막대그래프: + geom_bar()
+```{r}
+h<-ggplot(df, aes(qgrade))
+
+h + geom_bar()
+
+h + geom_bar() + scale_x_discrete(limits=c("3","2","1","1+","1++")) #순서 지정하기
+
+h + geom_bar(width=0.5, fill="red") + scale_x_discrete(limits=c("3","2","1","1+","1++")) #너비 및 색 지정
+```
+
+## 4.4. 분포도 그리기: + geom_density()
+
+```{r}
+g<-ggplot(df, aes(month))
+
+g + geom_density(kernel="gaussian")
+```
+
+
+# 5. dplyr + ggplot
+
+```{r}
+filter(df, month<40) %>% ggplot(aes(month)) + geom_density(kernel="gaussian") #40개월 미만의 개체의 분포도
+
+filter(df, Name=="Kim") %>% ggplot(aes(wgrade)) + geom_bar(width=0.4, fill="#81BEF7") + coord_flip() #김씨네 육량등급
+```
+
+- html 컬러 차트: https://html-color-codes.info/Korean/
+
+# 6. 연동형 문서 작성: R 마크다운
+
+- **4. 연동형 문서 작성을 참고해 주세요**  
+- https://gist.github.com/ihoneymon/652be052a0727ad59601  
+- ***워드나 한글로 예술 작품을 만들 필요는 없습니다 -> 보고서는 정보 전달이 목적***
+- R 마크다운 = 기존의 마크다운 + R 코드를 재현  
+- 기본 데이터가 변하더라도 같은 형식의 보고서를 빠르게 작성할 수 있음
