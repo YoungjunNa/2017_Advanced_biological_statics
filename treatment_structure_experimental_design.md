@@ -19,7 +19,7 @@ Email: ruminoreticulum@gmail.com
 
 **Types of treatments – Unstructured vs. Structured**  
 - Unstructured (unrelated) treatment: no natural order or relationship is established among the set of treatments (e.g. Beauchemin and McGinn, 2006)  
-- structured (related) treatment: 1) Grouping 2) Gradient structure  
+- Structured (related) treatment: 1) Grouping 2) Gradient structure  
 1)	Grouping (factorial) structure: two or more groups of related treatments (e.g. Hammond et al., 2016; Zhou et al., 2016; Figure 1).  
 2)	Gradient structure: Incremental differences are present (e.g. Campos et al., 2014; Xue et al., 2011)
 
